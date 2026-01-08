@@ -2,14 +2,14 @@ import java.io.*;
 import java.net.Socket;
 @SuppressWarnings("unused")
 
-public class ClientHandler extends Thread {
-    private Socket socket;
+public class ClientHandler extends Thread {   //EXTENDING THE THREAD
+    private Socket socket;        //DECLARATION 
     private ObjectInputStream in;
-    private ObjectOutputStream out;
+    private ObjectOutputStream out; //OBJECT I/O STREAM
 
-    int clientID; // the other node's ID
-    int serverID; // this node's ID
-    private Node parentNode;
+    int clientID; // the other node's ID  CLIENT &
+    int serverID; // this node's ID                   SERVER NODE ID'S
+    private Node parentNode;    //  LINK TO PARENT ROUTER LOGIC
 
     public ClientHandler(Socket socket, ObjectInputStream in, ObjectOutputStream out,
                          int clientID, int serverID, Node parentNode) {
@@ -45,10 +45,10 @@ public class ClientHandler extends Thread {
         }
     }
 
-    public void receiveMessage() {
+    public void receiveMessage() {    // RECIEVING ROUTING UPDATES
         try {
-            if (in.available() > 0) {
-                Object obj = in.readObject();
+            if (in.available() > 0) {  // CHECKING FOR INCOMING DATA
+                Object obj = in.readObject();   // READING INCOMING OBJECT
                 if (obj instanceof Message) {
                     parentNode.receiveUpdate((Message) obj);
                 }
@@ -58,3 +58,4 @@ public class ClientHandler extends Thread {
         }
     }
 }
+
